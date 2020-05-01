@@ -1,0 +1,24 @@
+{
+  "name": "docsify-progress",
+  "version": "1.0.1",
+  "description": "Progress bar plugin for docsify",
+  "main": "./dist/progress.js",
+  "author": "HerbertHe <Herbert.He0229@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "uglifyjs ./dist/progress.js -c -m -o ./dist/progress.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HerbertHe/docsify-progress.git"
+  },
+  "keywords": [
+    "progress",
+    "docsify",
+    "plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/HerbertHe/docsify-progress/issues"
+  },
+  "homepage": "https://github.com/HerbertHe/docsify-progress"
+}
