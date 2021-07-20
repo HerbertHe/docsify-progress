@@ -1,9 +1,3 @@
-var defaultOptions = {
-    position: "top",
-    color: "var(--theme-color,#42b983)",
-    height: "3px",
-}
-
 function plugin(hook, vm) {
     let marginTop
     hook.mounted(function () {
@@ -14,18 +8,34 @@ function plugin(hook, vm) {
 
         let insertDOM = `
         <div style="position: fixed; width: 100%; z-index: 999; height: ${
-            defaultOptions.height
+            window.$docsify["progress"].height
         };
-        ${defaultOptions.position === "top" ? "top: 0;" : "bottom: 0;"}">
+        ${
+            window.$docsify["progress"].position === "top"
+                ? "top: 0;"
+                : "bottom: 0;"
+        }">
             <div id="progress-display" style="background-color: ${
-                defaultOptions.color
+                window.$docsify["progress"].color
             }; width: 0; border-radius: 2px; height: ${
-            defaultOptions.height
+            window.$docsify["progress"].height
         }; transition: width 0.3s;"></div>
         </div>
         `
-        const mainDOM = document.getElementsByTagName("main")[0]
+        const mainDOM = document.getElementsByTagName("body")[0]
         mainDOM.innerHTML = mainDOM.innerHTML + insertDOM
+
+        document
+            .querySelector("button.sidebar-toggle")
+            .addEventListener("click", function (e) {
+                e.preventDefault()
+                const body = document.getElementsByTagName("body")[0]
+                if (!body.classList.contains("close")) {
+                    body.classList.add("close")
+                } else {
+                    body.classList.remove("close")
+                }
+            })
     })
     hook.ready(function () {
         window.addEventListener("scroll", function (e) {
@@ -40,14 +50,18 @@ function plugin(hook, vm) {
                 document.body.scrollTop + document.documentElement.scrollTop
             let remain = totalHeight - document.body.offsetHeight
             document.getElementById("progress-display").style.width =
-                Math.ceil(scrollTop / remain * 100)+ '%'
+                Math.ceil((scrollTop / remain) * 100) + "%"
         })
     })
 }
 
 // Docsify plugin options
 window.$docsify["progress"] = Object.assign(
-    defaultOptions,
+    {
+        position: "top",
+        color: "var(--theme-color,#42b983)",
+        height: "3px",
+    },
     window.$docsify["progress"]
 )
 window.$docsify.plugins = [].concat(plugin, window.$docsify.plugins)
