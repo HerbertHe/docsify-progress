@@ -25,17 +25,20 @@ function plugin(hook, vm) {
         const mainDOM = document.getElementsByTagName("body")[0]
         mainDOM.innerHTML = mainDOM.innerHTML + insertDOM
 
-        document
-            .querySelector("button.sidebar-toggle")
-            .addEventListener("click", function (e) {
-                e.preventDefault()
-                const body = document.getElementsByTagName("body")[0]
-                if (!body.classList.contains("close")) {
-                    body.classList.add("close")
-                } else {
-                    body.classList.remove("close")
-                }
-            })
+        function switcher() {
+            const body = document.getElementsByTagName("body")[0]
+            if (!body.classList.contains("close")) {
+                body.classList.add("close")
+            } else {
+                body.classList.remove("close")
+            }
+        }
+
+        const btn = document.querySelector("div.sidebar-toggle-button")
+        btn.addEventListener("click", function (e) {
+            e.stopPropagation()
+            switcher()
+        })
     })
     hook.ready(function () {
         window.addEventListener("scroll", function (e) {

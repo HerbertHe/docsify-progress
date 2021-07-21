@@ -1,6 +1,6 @@
 {
   "name": "docsify-progress",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Progress bar plugin for docsify",
   "main": "./dist/progress.js",
   "author": "HerbertHe <Herbert.He0229@gmail.com>",
